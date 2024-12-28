@@ -1,9 +1,23 @@
 {
     "layer": "top",
-    "modules-left": ["hyprland/workspaces"],
-    "modules-center": ["clock", "idle_inhibitor", "hyprland/window"],
-    "modules-right": ["tray", "custom/scratchpad-indicator", "pulseaudio", "custom/power"],
+    "modules-left": ["river/tags"],
+    "modules-center": ["clock", "idle_inhibitor"],
+    "modules-right": ["tray", "custom/scratchpad-indicator", "pulseaudio", "battery", "network", "custom/power"],
 
+    "river/tags": {
+        "num-tags": 5
+    },
+
+    "battery": {
+        "interval": 60,
+        "states": {
+            "warning": 30,
+            "critical": 15
+        },
+        "format": "{capacity}% {icon}",
+        "format-icons": ["", "", "", "", ""],
+        "max-length": 25
+    },
     "network": {
         "format-wifi": "{essid} ({signalStrength}%) ",
         "format-ethernet": "{ifname} ",
