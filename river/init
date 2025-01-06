@@ -4,7 +4,7 @@ export XDG_BACKEND=wayland
 export XDG_CURRENT_DESKTOP=river
 export XDG_SESSION_TYPE=river
 
-dbus-update-activation-environment XDG_BACKEND XDG_CURRENT_DESKTOP XDG_SESSION_TYPE WAYLAND_DISPLAY DISPLAY
+dbus-update-activation-environment --systemd XDG_BACKEND XDG_CURRENT_DESKTOP XDG_SESSION_TYPE WAYLAND_DISPLAY DISPLAY &
 # This is the example configuration file for river.
 #
 # If you wish to edit this, you will probably want to copy it to
