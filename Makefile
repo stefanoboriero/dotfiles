@@ -1,4 +1,4 @@
-install: waybar river foot nvim
+install: waybar river foot nvim zellij
 
 .PHONY: hypr
 hypr:
@@ -19,3 +19,7 @@ foot:
 .PHONY: nvim
 nvim:
 	ln -fns ${PWD}/nvim ${HOME}/.config/nvim
+
+.PHONY: zellij
+zellij:
+	ln -fns ${PWD}/zellij ${HOME}/.config/zellij
