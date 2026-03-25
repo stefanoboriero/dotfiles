@@ -1,4 +1,4 @@
-install: waybar river foot
+install: waybar river foot nvim
 
 .PHONY: hypr
 hypr:
@@ -15,3 +15,7 @@ waybar:
 .PHONY: foot
 foot:
 	ln -fns ${PWD}/foot ${HOME}/.config/foot
+
+.PHONY: nvim
+nvim:
+	ln -fns ${PWD}/nvim ${HOME}/.config/nvim
