@@ -1,18 +1,17 @@
-install: waybar hypr river
+install: waybar river foot
 
 .PHONY: hypr
 hypr:
-	ln -s ${PWD}/hypr ${HOME}/.config/hypr
+	ln -fns ${PWD}/hypr ${HOME}/.config/hypr
 
 .PHONY: river
 river:
-	ln -s ${PWD}/river/init ${HOME}/.config/river/init
-	ln -s ${PWD}/river/background.png ${HOME}/.config/river/background.png
+	ln -fns ${PWD}/river ${HOME}/.config/river
 
 .PHONY: waybar
 waybar:
-	ln -s ${PWD}/waybar ${HOME}/.config/waybar
+	ln -fns ${PWD}/waybar ${HOME}/.config/waybar
 
 .PHONY: foot
 foot:
-	ln -s ${PWD}/foot ${HOME}/.config/foot
+	ln -fns ${PWD}/foot ${HOME}/.config/foot
