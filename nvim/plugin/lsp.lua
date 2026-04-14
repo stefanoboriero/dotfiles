@@ -4,7 +4,7 @@ vim.pack.add({
     'https://github.com/L3MON4D3/LuaSnip',
     'https://github.com/mfussenegger/nvim-jdtls',
     'https://github.com/rafamadriz/friendly-snippets',
-    {src = 'https://github.com/saghen/blink.cmp', version= "v1" }
+    {src = 'https://github.com/saghen/blink.cmp', version= "v1.10.2" }
 })
 
 vim.api.nvim_create_autocmd('LspAttach', {
