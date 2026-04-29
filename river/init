@@ -18,7 +18,9 @@ dbus-update-activation-environment --systemd XDG_BACKEND XDG_CURRENT_DESKTOP XDG
 # Super+Shift+Return to start an instance of foot (https://codeberg.org/dnkl/foot)
 riverctl map normal Super Q spawn foot
 riverctl map normal Super F spawn firefox
-riverctl map normal Super S spawn slack
+riverctl map normal Super R spawn "rofi -show drun"
+riverctl map normal Super P spawn 'grim -g "$(slurp)" ~/Pictures/screenshot-$(date +%Y%m%d-%H%M%S).png'
+riverctl map normal Super V spawn 'wf-recorder -g "$(slurp)" -f ~/Videos/recording-$(date +%Y%m%d-%H%M%S).mp4'
 
 # Super+Q to close the focused view
 riverctl map normal Super C close
