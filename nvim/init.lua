@@ -64,7 +64,8 @@ require("conform").setup({
 })
 
 vim.pack.add( {"https://github.com/tpope/vim-fugitive"} )
-
+vim.pack.add( {"https://github.com/mpas/marp-nvim"} )
+require("marp").setup()
 vim.pack.add( {'https://github.com/echasnovski/mini.indentscope'})
 vim.opt.list = true
 vim.opt.listchars = { tab = "⇥ ", leadmultispace = "┊   ", trail = "␣", nbsp = "⍽" }

@@ -29,6 +29,10 @@
       "rev": "47f91c416daef12db467145e16bed5bbfe00add8",
       "src": "https://github.com/nvim-lualine/lualine.nvim"
     },
+    "marp-nvim": {
+      "rev": "4f38e6ffe2f5ea260f35f7ff3e4e424b9f8bea29",
+      "src": "https://github.com/mpas/marp-nvim"
+    },
     "mason.nvim": {
       "rev": "44d1e90e1f66e077268191e3ee9d2ac97cc18e65",
       "src": "https://github.com/mason-org/mason.nvim"
