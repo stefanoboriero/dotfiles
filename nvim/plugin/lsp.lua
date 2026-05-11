@@ -47,7 +47,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
     end
 })
 
-vim.lsp.enable({ 'lua_ls', 'gopls', 'jdtls' })
+vim.lsp.enable({ 'lua_ls', 'gopls', 'jdtls', 'terraformls' })
 
 require("mason").setup()
 require("blink.cmp").setup()
