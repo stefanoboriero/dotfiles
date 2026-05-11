@@ -2,8 +2,17 @@
     "layer": "top",
     "modules-left": ["hyprland/workspaces"],
     "modules-center": ["clock", "idle_inhibitor"],
-    "modules-right": ["tray", "custom/scratchpad-indicator", "pulseaudio", "battery", "network", "custom/power"],
+    "modules-right": ["tray", "cpu", "memory", "custom/scratchpad-indicator", "pulseaudio", "battery", "network", "custom/power"],
 
+    "cpu": {
+        "interval": 5,
+        "format": " {usage}%",
+        "tooltip": false
+    },
+    "memory": {
+        "interval": 5,
+        "format": " {percentage}%"
+    },
     "battery": {
         "interval": 60,
         "states": {

@@ -2,12 +2,21 @@
     "layer": "top",
     "modules-left": ["river/tags"],
     "modules-center": ["clock", "idle_inhibitor"],
-    "modules-right": ["tray", "custom/scratchpad-indicator", "pulseaudio", "battery", "network", "custom/power"],
+    "modules-right": ["tray", "cpu", "memory", "custom/scratchpad-indicator", "pulseaudio", "battery", "network", "custom/power"],
 
     "river/tags": {
         "num-tags": 5
     },
 
+    "cpu": {
+        "interval": 5,
+        "format": " {usage}%",
+        "tooltip": false
+    },
+    "memory": {
+        "interval": 5,
+        "format": " {percentage}%"
+    },
     "battery": {
         "interval": 60,
         "states": {
