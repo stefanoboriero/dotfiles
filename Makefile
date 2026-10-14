@@ -1,4 +1,4 @@
-install: waybar river foot nvim zellij
+install: waybar river foot nvim zellij aerospace sketchybar ghostty
 
 .PHONY: hypr
 hypr:
@@ -23,3 +23,16 @@ nvim:
 .PHONY: zellij
 zellij:
 	ln -fns ${PWD}/zellij ${HOME}/.config/zellij
+
+.PHONY: aerospace
+aerospace:
+	ln -fns ${PWD}/aerospace ${HOME}/.config/aerospace
+
+.PHONY: sketchybar
+sketchybar:
+	ln -fns ${PWD}/sketchybar ${HOME}/.config/sketchybar
+	$(MAKE) -C ${PWD}/sketchybar/helper
+
+.PHONY: ghostty
+ghostty:
+	ln -fns ${PWD}/ghostty ${HOME}/.config/ghostty

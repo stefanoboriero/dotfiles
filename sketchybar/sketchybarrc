@@ -1,0 +1,100 @@
+#!/usr/bin/env sh
+
+source "$HOME/.config/sketchybar/colors.sh" # Loads all defined colors
+source "$HOME/.config/sketchybar/icons.sh" # Loads all defined icons
+
+CONFIG_DIR="$HOME/.config/sketchybar" # Base directory, used by item scripts to locate plugins
+ITEM_DIR="$HOME/.config/sketchybar/items" # Directory where the items are configured
+PLUGIN_DIR="$HOME/.config/sketchybar/plugins" # Directory where all the plugin scripts are stored
+HELPER=git.sketchybar.helper # Bootstrap name of the mach helper, see items/cpu.sh
+
+FONT="Hack Nerd Font" # Only has Regular, Bold, Italic and Bold Italic variants
+SPACE_CLICK_SCRIPT="yabai -m space --focus \$SID 2>/dev/null" # The script that is run for clicking on space components
+
+PADDINGS=3 # All paddings use this value (icon, label, background)
+
+BAR_SIZE=50 # Bar thickness, which is its width since it is positioned vertically
+# Width the drawn element of an item should reserve so it spans the bar exactly:
+# reserving this plus the background padding on each side leaves no slack for the
+# glyph to drift in, which is what keeps the stacked rows visually centred.
+CONTENT_WIDTH=$((BAR_SIZE - 2 * PADDINGS))
+
+POPUP_BORDER_WIDTH=2
+POPUP_CORNER_RADIUS=11
+
+SHADOW=on
+
+# The mach helper feeds both the cpu items and the calendar clock (helper/cpu.h
+# and helper/clock.h), so it has to be running before those items update. make
+# is a no-op once the binary is up to date.
+killall helper >/dev/null 2>&1
+# killall is asynchronous. If the new helper starts while the old one still holds
+# the bootstrap name, bootstrap_register fails, mach_server_begin bails out and
+# the helper exits without ever serving an event, leaving cpu and clock blank.
+while pgrep -x helper >/dev/null 2>&1; do sleep 0.1; done
+if make -C "$CONFIG_DIR/helper" >/dev/null; then
+  "$CONFIG_DIR/helper/helper" "$HELPER" >/dev/null 2>&1 &
+else
+  echo "warning: could not build the sketchybar helper; cpu and clock will be blank"
+fi
+
+# Setting up the general bar appearance and default values
+sketchybar --bar     height=$BAR_SIZE                                  \
+                     color=$BAR_COLOR                                  \
+                     shadow=$SHADOW                                    \
+                     position=right                                     \
+                     sticky=on                                         \
+                     padding_right=18                                  \
+                     padding_left=18                                   \
+                     corner_radius=9                                   \
+                     y_offset=10                                       \
+                     margin=10                                         \
+                     blur_radius=20                                    \
+                                                                       \
+           --default updates=when_shown                                \
+                     icon.font="$FONT:Bold:14.0"                       \
+                     icon.color=$ICON_COLOR                            \
+                     icon.padding_left=$PADDINGS                       \
+                     icon.padding_right=$PADDINGS                      \
+                     label.font="$FONT:Regular:13.0"                   \
+                     label.color=$LABEL_COLOR                          \
+                     label.padding_left=$PADDINGS                      \
+                     label.padding_right=$PADDINGS                     \
+                     background.padding_right=$PADDINGS                \
+                     background.padding_left=$PADDINGS                 \
+                     popup.background.border_width=2                   \
+                     popup.background.corner_radius=11                 \
+                     popup.background.border_color=$POPUP_BORDER_COLOR \
+                     popup.background.color=$POPUP_BACKGROUND_COLOR    \
+                     popup.background.shadow.drawing=$SHADOW
+
+# Left (top of the bar downwards, in this order)
+source "$ITEM_DIR/apple.sh"
+source "$ITEM_DIR/slack.sh"
+source "$ITEM_DIR/spaces.sh"
+
+# Center
+# source "$ITEM_DIR/spotify.sh"
+
+# Right (bottom of the bar upwards, in this order)
+source "$ITEM_DIR/calendar.sh"
+source "$ITEM_DIR/cpu.sh"
+source "$ITEM_DIR/memory.sh"
+
+############## FINALIZING THE SETUP ##############
+
+# sketchybar resolves the helper's bootstrap name at the moment mach_helper is
+# set, and items/cpu.sh is sourced while the helper is still starting up in the
+# background. That first binding can therefore land before the helper has
+# registered, after which it silently never delivers an event. Re-assert it now
+# that the helper is definitely up, so cpu and the clock survive every reload.
+i=0
+while [ "$i" -lt 40 ] && ! pgrep -x helper >/dev/null 2>&1; do
+  i=$((i + 1))
+  sleep 0.05
+done
+sketchybar --set cpu.percent mach_helper="$HELPER" >/dev/null
+
+sketchybar --update
+
+echo "sketchybar configuation loaded.."
